@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+  labels:
+    app: hello-world
+spec:
+  selector:
+    matchLabels:
+      app: hello-world
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - name: hello-world
+        image: sulatnijag/jenkinstest:latest
+        ports:
+        - containerPort: 4000
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: "250m"
+          requests:
+            memory: 128Mi
+            cpu: "80m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-world #The name of the Kubernetes Service to be created in the Kubernetes cluster
+spec:
+  selector:
+    app: hello-world
+  type: LoadBalancer #Type of the Kubernetes Service
+  ports:
+  - protocol: TCP
+    port: 80 #Service port
+    targetPort: 4000 #The port for the React.js application container
