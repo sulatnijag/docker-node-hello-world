@@ -4,7 +4,7 @@ var port = 4000
 
 var server = http.createServer(function (request, response) {
   response.writeHead(200, {'Content-Type': 'text/plain'})
-  response.end('Hello World! I\'m from NodeJS! \n')
+  response.end('Hello World! I\'m Jenkins Built \n')
 })
 
 server.listen(port)
